@@ -55,6 +55,11 @@ ec2-ebs-casestudy/
 ├── 📊 monitoring/                      # CloudWatch configurations
 ├── 💰 cost-analysis/                   # Financial analysis
 └── 📚 appendices/                      # Supporting documentation
+│   ├── appendix-a-configurations.md
+│   ├── appendix-b-scripts.md
+│   ├── appendix-c-performance.md
+│   ├── appendix-d-troubleshooting.md
+│   └── appendix-e-references.md
 ```
 
 ## 🚀 Quick Start
