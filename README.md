@@ -121,8 +121,8 @@ This project demonstrates practical experience with:
 
 ## 📚 Documentation
 
-- **[Complete Case Study](documentation/case-study.pdf)** - Full technical analysis
-- **[Implementation Guide](documentation/implementation-guide.md)** - Step-by-step instructions
+- **[Complete Case Study](documentation/Casestudy.pdf)** - Full technical analysis
+- **[Implementation Guide](documentation/implementation_guide.md)** - Step-by-step instructions
 - **[Architecture Diagrams](architecture/)** - Visual system design
 - **[Scripts & Automation](scripts/)** - Ready-to-use code
 - **[Performance Benchmarks](testing/)** - Detailed test results
