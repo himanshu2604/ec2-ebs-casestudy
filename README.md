@@ -37,7 +37,7 @@
 ```
 ec2-ebs-casestudy/
 ├── 📋 documentation/
-│   ├── case-study.md                    # Complete case study document
+│   ├── case-study.pdf                   # Complete case study document
 │   ├── implementation-guide.md          # Step-by-step deployment guide
 │   └── multi-region-strategy.md         # Cross-region best practices
 ├── 🔧 scripts/
@@ -49,7 +49,8 @@ ec2-ebs-casestudy/
 │   ├── aws-cli/                         # AWS CLI configurations
 │   ├── ami-configs/                     # AMI specifications
 │   └── instance-configs/                # Instance configurations
-├── 📸 screenshots/                      # Implementation evidence
+├── 📸 screenshots/                     # Implementation evidence
+├── 📸 architecture/                    # Main Architecture
 ├── 🧪 testing/                         # Test results and benchmarks
 ├── 📊 monitoring/                      # CloudWatch configurations
 ├── 💰 cost-analysis/                   # Financial analysis
@@ -120,7 +121,7 @@ This project demonstrates practical experience with:
 
 ## 📚 Documentation
 
-- **[Complete Case Study](documentation/case-study.md)** - Full technical analysis
+- **[Complete Case Study](documentation/case-study.pdf)** - Full technical analysis
 - **[Implementation Guide](documentation/implementation-guide.md)** - Step-by-step instructions
 - **[Architecture Diagrams](architecture/)** - Visual system design
 - **[Scripts & Automation](scripts/)** - Ready-to-use code
