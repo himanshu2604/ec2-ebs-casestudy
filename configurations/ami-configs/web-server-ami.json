@@ -1,0 +1,48 @@
+{
+  "ami_configuration": {
+    "name": "XYZ-Corp-WebServer",
+    "description": "Custom web server AMI for XYZ Corporation",
+    "base_ami": "ami-0abcdef1234567890",
+    "instance_type": "t3.micro",
+    "region": "us-east-1",
+    "tags": {
+      "Name": "XYZ-Corp-WebServer-v1.0",
+      "Environment": "Production",
+      "Owner": "XYZ Corporation",
+      "Project": "Multi-Region Infrastructure",
+      "Created": "2024-01-01"
+    },
+    "software_packages": [
+      "httpd",
+      "htop",
+      "tree",
+      "wget",
+      "curl",
+      "unzip",
+      "amazon-cloudwatch-agent"
+    ],
+    "configurations": {
+      "apache": {
+        "server_tokens": "Prod",
+        "server_signature": "Off",
+        "security_headers": true,
+        "compression": true
+      },
+      "monitoring": {
+        "cloudwatch_agent": true,
+        "custom_monitoring": true
+      },
+      "security": {
+        "auto_updates": true,
+        "log_rotation": true,
+        "firewall": false
+      }
+    }
+  },
+  "cross_region_replication": {
+    "enabled": true,
+    "target_regions": ["us-west-2"],
+    "naming_convention": "{name}-{region}",
+    "copy_tags": true
+  }
+}

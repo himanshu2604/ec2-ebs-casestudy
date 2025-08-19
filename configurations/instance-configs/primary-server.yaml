@@ -1,0 +1,68 @@
+primary_server:
+  region: us-east-1
+  availability_zone: us-east-1a
+  instance_type: t3.micro
+  ami_id: ami-0abcdef1234567890
+  key_pair: xyz-keypair-east
+  
+  security_groups:
+    - name: XYZ-WebServer-SG
+      description: Security group for XYZ Corporation web servers
+      rules:
+        inbound:
+          - protocol: tcp
+            port: 80
+            cidr: 0.0.0.0/0
+            description: HTTP access
+          - protocol: tcp
+            port: 443
+            cidr: 0.0.0.0/0
+            description: HTTPS access
+          - protocol: tcp
+            port: 22
+            cidr: YOUR_IP/32
+            description: SSH access
+        outbound:
+          - protocol: -1
+            port: -1
+            cidr: 0.0.0.0/0
+            description: All outbound traffic
+
+  ebs_volumes:
+    root:
+      size: 8
+      type: gp3
+      encrypted: true
+      delete_on_termination: true
+    data1:
+      size: 8
+      type: gp3
+      encrypted: true
+      mount_point: /data1
+      device: /dev/sdf
+    data2:
+      size: 8
+      type: gp3
+      encrypted: true
+      mount_point: /data2
+      device: /dev/sdg
+
+  tags:
+    Name: XYZ-Primary-WebServer
+    Environment: Production
+    Region: Primary
+    Owner: XYZ Corporation
+    Project: Multi-Region Infrastructure
+    Backup: Enabled
+    Monitoring: Enabled
+
+  monitoring:
+    detailed_monitoring: true
+    cloudwatch_logs: true
+    custom_metrics: true
+    
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"
+    retention_days: 7
+    cross_region_copy: true

@@ -1,0 +1,10 @@
+region = us-east-1
+output = json
+
+[profile xyz-primary]
+region = us-east-1
+output = table
+
+[profile xyz-secondary]
+region = us-west-2
+output = table

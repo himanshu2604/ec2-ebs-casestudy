@@ -1,0 +1,62 @@
+secondary_server:
+  region: us-west-2
+  availability_zone: us-west-2a
+  instance_type: t3.micro
+  ami_id: ami-copied-from-primary
+  key_pair: xyz-keypair-west
+  
+  security_groups:
+    - name: XYZ-WebServer-SG-West
+      description: Security group for XYZ Corporation web servers - West
+      rules:
+        inbound:
+          - protocol: tcp
+            port: 80
+            cidr: 0.0.0.0/0
+            description: HTTP access
+          - protocol: tcp
+            port: 443
+            cidr: 0.0.0.0/0
+            description: HTTPS access
+          - protocol: tcp
+            port: 22
+            cidr: YOUR_IP/32
+            description: SSH access
+        outbound:
+          - protocol: -1
+            port: -1
+            cidr: 0.0.0.0/0
+            description: All outbound traffic
+
+  ebs_volumes:
+    root:
+      size: 8
+      type: gp3
+      encrypted: true
+      delete_on_termination: true
+    data1:
+      size: 8
+      type: gp3
+      encrypted: true
+      mount_point: /data1
+      device: /dev/sdf
+
+  tags:
+    Name: XYZ-Secondary-WebServer
+    Environment: Production
+    Region: Secondary
+    Owner: XYZ Corporation
+    Project: Multi-Region Infrastructure
+    Backup: Enabled
+    Monitoring: Enabled
+
+  monitoring:
+    detailed_monitoring: true
+    cloudwatch_logs: true
+    custom_metrics: true
+    
+  backup:
+    enabled: true
+    schedule: "0 3 * * *"
+    retention_days: 7
+    source_region_sync: true
