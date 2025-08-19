@@ -1,0 +1,99 @@
+{
+  "cloudwatch_configuration": {
+    "agent": {
+      "metrics": {
+        "namespace": "XYZ/Infrastructure",
+        "metrics_collected": {
+          "cpu": {
+            "measurement": [
+              "cpu_usage_idle",
+              "cpu_usage_iowait",
+              "cpu_usage_user",
+              "cpu_usage_system"
+            ],
+            "metrics_collection_interval": 60,
+            "totalcpu": false
+          },
+          "disk": {
+            "measurement": ["used_percent"],
+            "metrics_collection_interval": 60,
+            "resources": ["*"]
+          },
+          "diskio": {
+            "measurement": [
+              "io_time",
+              "read_bytes",
+              "write_bytes",
+              "reads",
+              "writes"
+            ],
+            "metrics_collection_interval": 60,
+            "resources": ["*"]
+          },
+          "mem": {
+            "measurement": ["mem_used_percent"],
+            "metrics_collection_interval": 60
+          },
+          "netstat": {
+            "measurement": [
+              "tcp_established",
+              "tcp_time_wait"
+            ],
+            "metrics_collection_interval": 60
+          },
+          "swap": {
+            "measurement": ["swap_used_percent"],
+            "metrics_collection_interval": 60
+          }
+        }
+      },
+      "logs": {
+        "logs_collected": {
+          "files": {
+            "collect_list": [
+              {
+                "file_path": "/var/log/httpd/access_log",
+                "log_group_name": "/xyz/apache/access",
+                "log_stream_name": "{instance_id}",
+                "timestamp_format": "%d/%b/%Y:%H:%M:%S %z"
+              },
+              {
+                "file_path": "/var/log/httpd/error_log",
+                "log_group_name": "/xyz/apache/error",
+                "log_stream_name": "{instance_id}",
+                "timestamp_format": "%a %b %d %H:%M:%S %Y"
+              },
+              {
+                "file_path": "/var/log/messages",
+                "log_group_name": "/xyz/system/messages",
+                "log_stream_name": "{instance_id}"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "alarms": {
+      "cpu_high": {
+        "metric_name": "CPUUtilization",
+        "namespace": "AWS/EC2",
+        "statistic": "Average",
+        "period": 300,
+        "evaluation_periods": 2,
+        "threshold": 80,
+        "comparison_operator": "GreaterThanThreshold",
+        "alarm_description": "High CPU utilization"
+      },
+      "disk_space_high": {
+        "metric_name": "DiskSpaceUtilization",
+        "namespace": "System/Linux",
+        "statistic": "Average",
+        "period": 300,
+        "evaluation_periods": 1,
+        "threshold": 85,
+        "comparison_operator": "GreaterThanThreshold",
+        "alarm_description": "High disk space utilization"
+      }
+    }
+  }
+}

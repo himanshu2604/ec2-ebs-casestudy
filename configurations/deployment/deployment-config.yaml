@@ -1,0 +1,69 @@
+deployment_configuration:
+  project:
+    name: "XYZ Multi-Region Infrastructure"
+    version: "1.0"
+    owner: "XYZ Corporation"
+    
+  environments:
+    production:
+      primary_region: us-east-1
+      secondary_region: us-west-2
+      instance_type: t3.micro
+      min_instances: 1
+      max_instances: 1
+      
+  deployment_strategy:
+    type: blue_green
+    rollback_enabled: true
+    health_check_grace_period: 300
+    
+  regions:
+    us-east-1:
+      name: "Primary Region"
+      role: primary
+      availability_zones:
+        - us-east-1a
+        - us-east-1b
+      subnets:
+        - subnet-12345678  # Replace with actual subnet ID
+        - subnet-87654321  # Replace with actual subnet ID
+        
+    us-west-2:
+      name: "Secondary Region"
+      role: secondary
+      availability_zones:
+        - us-west-2a
+        - us-west-2b
+      subnets:
+        - subnet-abcdef12  # Replace with actual subnet ID
+        - subnet-fedcba21  # Replace with actual subnet ID
+        
+  automation:
+    ami_creation:
+      enabled: true
+      schedule: "0 6 * * 1"  # Weekly on Monday at 6 AM
+      cleanup_old_amis: true
+      retention_count: 3
+      
+    cross_region_sync:
+      enabled: true
+      schedule: "0 7 * * 1"  # Weekly on Monday at 7 AM
+      sync_delay_minutes: 30
+      
+    backup:
+      enabled: true
+      schedule: "0 2 * * *"  # Daily at 2 AM
+      retention_policy: "7d"
+      cross_region_copy: true
+      
+  monitoring:
+    enabled: true
+    detailed_monitoring: true
+    log_retention_days: 30
+    alert_email: "admin@xyzcorp.com"
+    
+  security:
+    encryption_at_rest: true
+    encryption_in_transit: true
+    key_rotation_enabled: true
+    compliance_logging: true

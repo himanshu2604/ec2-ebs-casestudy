@@ -1,0 +1,62 @@
+{
+  "backup_policy": {
+    "name": "XYZ-Corporation-Backup-Policy",
+    "description": "Comprehensive backup policy for XYZ Corporation infrastructure",
+    "version": "1.0",
+    "schedules": {
+      "daily": {
+        "frequency": "daily",
+        "time": "02:00",
+        "timezone": "UTC",
+        "retention_days": 7,
+        "enabled": true
+      },
+      "weekly": {
+        "frequency": "weekly",
+        "day": "sunday",
+        "time": "03:00",
+        "timezone": "UTC",
+        "retention_weeks": 4,
+        "enabled": true
+      },
+      "monthly": {
+        "frequency": "monthly",
+        "day": 1,
+        "time": "04:00",
+        "timezone": "UTC",
+        "retention_months": 12,
+        "enabled": true
+      }
+    },
+    "targets": {
+      "volumes": {
+        "include_patterns": ["XYZ-*"],
+        "exclude_patterns": ["temp-*", "test-*"],
+        "regions": ["us-east-1", "us-west-2"]
+      },
+      "instances": {
+        "include_tags": {
+          "Backup": "Enabled",
+          "Owner": "XYZ Corporation"
+        },
+        "regions": ["us-east-1", "us-west-2"]
+      }
+    },
+    "cross_region": {
+      "enabled": true,
+      "source_regions": ["us-east-1"],
+      "target_regions": ["us-west-2"],
+      "delay_hours": 1
+    },
+    "notifications": {
+      "success": {
+        "enabled": false,
+        "sns_topic": "arn:aws:sns:us-east-1:123456789012:backup-success"
+      },
+      "failure": {
+        "enabled": true,
+        "sns_topic": "arn:aws:sns:us-east-1:123456789012:backup-failure"
+      }
+    }
+  }
+}

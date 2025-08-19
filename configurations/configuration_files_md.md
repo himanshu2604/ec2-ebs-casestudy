@@ -1,4 +1,23 @@
-# configurations/aws-cli/config
+# Configuration Files Documentation
+
+This document contains all configuration files used in the XYZ Corporation Multi-Region Web Server Infrastructure project.
+
+## Table of Contents
+- [AWS CLI Configuration](#aws-cli-configuration)
+- [AMI Configuration](#ami-configuration)
+- [Instance Configuration](#instance-configuration)
+- [Backup Policies](#backup-policies)
+- [Monitoring Configuration](#monitoring-configuration)
+- [Security Groups](#security-groups)
+- [Deployment Configuration](#deployment-configuration)
+- [Cost Optimization](#cost-optimization)
+
+---
+
+## AWS CLI Configuration
+
+### `configurations/aws-cli/config`
+```ini
 [default]
 region = us-east-1
 output = json
@@ -10,9 +29,10 @@ output = table
 [profile xyz-secondary]
 region = us-west-2
 output = table
+```
 
-# ================================================================
-# configurations/aws-cli/credentials.template
+### `configurations/aws-cli/credentials.template`
+```ini
 [default]
 aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
@@ -26,9 +46,16 @@ region = us-east-1
 aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 region = us-west-2
+```
 
-# ================================================================
-# configurations/ami-configs/web-server-ami.json
+> **⚠️ Security Note**: Never commit actual credentials to version control. Use the template file and populate with actual values locally.
+
+---
+
+## AMI Configuration
+
+### `configurations/ami-configs/web-server-ami.json`
+```json
 {
   "ami_configuration": {
     "name": "XYZ-Corp-WebServer",
@@ -77,9 +104,14 @@ region = us-west-2
     "copy_tags": true
   }
 }
+```
 
-# ================================================================
-# configurations/instance-configs/primary-server.yaml
+---
+
+## Instance Configuration
+
+### Primary Server: `configurations/instance-configs/primary-server.yaml`
+```yaml
 primary_server:
   region: us-east-1
   availability_zone: us-east-1a
@@ -148,9 +180,10 @@ primary_server:
     schedule: "0 2 * * *"
     retention_days: 7
     cross_region_copy: true
+```
 
-# ================================================================
-# configurations/instance-configs/secondary-server.yaml
+### Secondary Server: `configurations/instance-configs/secondary-server.yaml`
+```yaml
 secondary_server:
   region: us-west-2
   availability_zone: us-west-2a
@@ -213,9 +246,14 @@ secondary_server:
     schedule: "0 3 * * *"
     retention_days: 7
     source_region_sync: true
+```
 
-# ================================================================
-# configurations/backup-policies/backup-policy.json
+---
+
+## Backup Policies
+
+### `configurations/backup-policies/backup-policy.json`
+```json
 {
   "backup_policy": {
     "name": "XYZ-Corporation-Backup-Policy",
@@ -278,9 +316,14 @@ secondary_server:
     }
   }
 }
+```
 
-# ================================================================
-# configurations/monitoring/cloudwatch-config.json
+---
+
+## Monitoring Configuration
+
+### `configurations/monitoring/cloudwatch-config.json`
+```json
 {
   "cloudwatch_configuration": {
     "agent": {
@@ -298,13 +341,9 @@ secondary_server:
             "totalcpu": false
           },
           "disk": {
-            "measurement": [
-              "used_percent"
-            ],
+            "measurement": ["used_percent"],
             "metrics_collection_interval": 60,
-            "resources": [
-              "*"
-            ]
+            "resources": ["*"]
           },
           "diskio": {
             "measurement": [
@@ -315,14 +354,10 @@ secondary_server:
               "writes"
             ],
             "metrics_collection_interval": 60,
-            "resources": [
-              "*"
-            ]
+            "resources": ["*"]
           },
           "mem": {
-            "measurement": [
-              "mem_used_percent"
-            ],
+            "measurement": ["mem_used_percent"],
             "metrics_collection_interval": 60
           },
           "netstat": {
@@ -333,9 +368,7 @@ secondary_server:
             "metrics_collection_interval": 60
           },
           "swap": {
-            "measurement": [
-              "swap_used_percent"
-            ],
+            "measurement": ["swap_used_percent"],
             "metrics_collection_interval": 60
           }
         }
@@ -360,16 +393,6 @@ secondary_server:
                 "file_path": "/var/log/messages",
                 "log_group_name": "/xyz/system/messages",
                 "log_stream_name": "{instance_id}"
-              },
-              {
-                "file_path": "/var/log/ebs-operations.log",
-                "log_group_name": "/xyz/ebs/operations",
-                "log_stream_name": "{instance_id}"
-              },
-              {
-                "file_path": "/var/log/backup-operations.log",
-                "log_group_name": "/xyz/backup/operations",
-                "log_stream_name": "{instance_id}"
               }
             ]
           }
@@ -385,8 +408,7 @@ secondary_server:
         "evaluation_periods": 2,
         "threshold": 80,
         "comparison_operator": "GreaterThanThreshold",
-        "alarm_description": "High CPU utilization",
-        "treat_missing_data": "breaching"
+        "alarm_description": "High CPU utilization"
       },
       "disk_space_high": {
         "metric_name": "DiskSpaceUtilization",
@@ -397,56 +419,18 @@ secondary_server:
         "threshold": 85,
         "comparison_operator": "GreaterThanThreshold",
         "alarm_description": "High disk space utilization"
-      },
-      "instance_status_check": {
-        "metric_name": "StatusCheckFailed",
-        "namespace": "AWS/EC2",
-        "statistic": "Maximum",
-        "period": 300,
-        "evaluation_periods": 2,
-        "threshold": 1,
-        "comparison_operator": "GreaterThanOrEqualToThreshold",
-        "alarm_description": "Instance status check failed"
-      }
-    },
-    "dashboards": {
-      "xyz_infrastructure": {
-        "name": "XYZ-Infrastructure-Dashboard",
-        "widgets": [
-          {
-            "type": "metric",
-            "properties": {
-              "metrics": [
-                ["AWS/EC2", "CPUUtilization", "InstanceId", "PRIMARY_INSTANCE_ID"],
-                ["AWS/EC2", "CPUUtilization", "InstanceId", "SECONDARY_INSTANCE_ID"]
-              ],
-              "period": 300,
-              "stat": "Average",
-              "region": "us-east-1",
-              "title": "CPU Utilization"
-            }
-          },
-          {
-            "type": "metric",
-            "properties": {
-              "metrics": [
-                ["AWS/EBS", "VolumeReadBytes", "VolumeId", "vol-primary"],
-                ["AWS/EBS", "VolumeWriteBytes", "VolumeId", "vol-primary"]
-              ],
-              "period": 300,
-              "stat": "Sum",
-              "region": "us-east-1",
-              "title": "EBS Volume I/O"
-            }
-          }
-        ]
       }
     }
   }
 }
+```
 
-# ================================================================
-# configurations/security/security-groups.yaml
+---
+
+## Security Groups
+
+### `configurations/security/security-groups.yaml`
+```yaml
 security_groups:
   primary_region:
     region: us-east-1
@@ -515,9 +499,14 @@ security_groups:
           Name: XYZ-WebServer-SG-West
           Environment: Production
           Region: Secondary
+```
 
-# ================================================================
-# configurations/deployment/deployment-config.yaml
+---
+
+## Deployment Configuration
+
+### `configurations/deployment/deployment-config.yaml`
+```yaml
 deployment_configuration:
   project:
     name: "XYZ Multi-Region Infrastructure"
@@ -587,9 +576,14 @@ deployment_configuration:
     encryption_in_transit: true
     key_rotation_enabled: true
     compliance_logging: true
+```
 
-# ================================================================
-# configurations/cost-optimization/cost-config.yaml
+---
+
+## Cost Optimization
+
+### `configurations/cost-optimization/cost-config.yaml`
+```yaml
 cost_optimization:
   policies:
     instance_scheduling:
@@ -649,3 +643,61 @@ cost_optimization:
     frequency: "weekly"
     email_recipients: ["admin@xyzcorp.com"]
     include_recommendations: true
+```
+
+---
+
+## Usage Instructions
+
+### 1. Configuration Setup
+```bash
+# Replace placeholder values before using
+sed -i 's/YOUR_ACCESS_KEY_ID/actual_key_id/g' configurations/aws-cli/credentials
+sed -i 's/YOUR_IP_ADDRESS/your_actual_ip/g' configurations/security/security-groups.yaml
+sed -i 's/ami-0abcdef1234567890/actual_ami_id/g' configurations/instance-configs/*.yaml
+```
+
+### 2. AWS CLI Profile Setup
+```bash
+# Copy configuration files
+cp configurations/aws-cli/config ~/.aws/
+cp configurations/aws-cli/credentials ~/.aws/
+
+# Test profiles
+aws ec2 describe-instances --profile xyz-primary
+aws ec2 describe-instances --profile xyz-secondary
+```
+
+### 3. Deploy Using Configuration
+```bash
+# Create security groups
+aws ec2 create-security-group --cli-input-yaml file://configurations/security/security-groups.yaml
+
+# Launch instances with configuration
+aws ec2 run-instances --cli-input-yaml file://configurations/instance-configs/primary-server.yaml
+```
+
+---
+
+## Security Best Practices
+
+- ✅ **Credentials Management**: Never commit actual AWS credentials
+- ✅ **IP Restrictions**: SSH access limited to admin IP addresses  
+- ✅ **Encryption**: All EBS volumes encrypted at rest
+- ✅ **Minimal Access**: Security groups follow least privilege principle
+- ✅ **Monitoring**: Comprehensive logging and alerting configured
+- ✅ **Backup Strategy**: Multi-tier backup with cross-region replication
+
+## Configuration Validation
+
+Before deploying, validate configurations using:
+```bash
+# YAML syntax validation
+python -c "import yaml; yaml.safe_load(open('config.yaml'))"
+
+# JSON syntax validation  
+python -m json.tool config.json
+
+# AWS CLI dry-run validation
+aws ec2 run-instances --dry-run --cli-input-yaml file://config.yaml
+```

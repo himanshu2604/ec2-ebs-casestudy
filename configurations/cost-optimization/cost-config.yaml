@@ -1,0 +1,59 @@
+cost_optimization:
+  policies:
+    instance_scheduling:
+      enabled: false  # Keep instances running for production
+      dev_schedule:
+        start_time: "08:00"
+        stop_time: "18:00"
+        timezone: "UTC"
+        weekdays_only: true
+        
+    right_sizing:
+      enabled: true
+      evaluation_period_days: 30
+      cpu_threshold_low: 10
+      memory_threshold_low: 20
+      recommendations_enabled: true
+      
+    storage_optimization:
+      enabled: true
+      old_snapshot_cleanup:
+        retention_days: 30
+        automated: true
+        exclude_tags: ["permanent", "critical"]
+      unused_volume_detection: true
+      gp2_to_gp3_migration: true
+      
+    reserved_instances:
+      enabled: false  # Manual decision required
+      recommendations: true
+      commitment_level: "1_year"
+      payment_option: "partial_upfront"
+      
+  budgets:
+    monthly_limit: 100.00
+    currency: "USD"
+    alerts:
+      - threshold: 80
+        type: "percentage"
+        notification: "admin@xyzcorp.com"
+      - threshold: 95
+        type: "percentage"
+        notification: "admin@xyzcorp.com"
+        
+  tagging_strategy:
+    required_tags:
+      - "Owner"
+      - "Environment"
+      - "Project"
+      - "CostCenter"
+    cost_allocation_tags:
+      - "Owner"
+      - "Project"
+      - "Environment"
+      
+  reporting:
+    enabled: true
+    frequency: "weekly"
+    email_recipients: ["admin@xyzcorp.com"]
+    include_recommendations: true

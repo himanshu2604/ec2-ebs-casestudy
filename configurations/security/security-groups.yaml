@@ -1,0 +1,68 @@
+security_groups:
+  primary_region:
+    region: us-east-1
+    groups:
+      - name: XYZ-WebServer-SG
+        description: Security group for XYZ Corporation web servers
+        vpc_id: default
+        rules:
+          ingress:
+            - protocol: tcp
+              from_port: 80
+              to_port: 80
+              cidr_blocks: ["0.0.0.0/0"]
+              description: HTTP access from anywhere
+            - protocol: tcp
+              from_port: 443
+              to_port: 443
+              cidr_blocks: ["0.0.0.0/0"]
+              description: HTTPS access from anywhere
+            - protocol: tcp
+              from_port: 22
+              to_port: 22
+              cidr_blocks: ["YOUR_IP_ADDRESS/32"]
+              description: SSH access from admin IP
+          egress:
+            - protocol: -1
+              from_port: -1
+              to_port: -1
+              cidr_blocks: ["0.0.0.0/0"]
+              description: All outbound traffic
+        tags:
+          Name: XYZ-WebServer-SG
+          Environment: Production
+          Region: Primary
+          
+  secondary_region:
+    region: us-west-2
+    groups:
+      - name: XYZ-WebServer-SG-West
+        description: Security group for XYZ Corporation web servers - West Region
+        vpc_id: default
+        rules:
+          ingress:
+            - protocol: tcp
+              from_port: 80
+              to_port: 80
+              cidr_blocks: ["0.0.0.0/0"]
+              description: HTTP access from anywhere
+            - protocol: tcp
+              from_port: 443
+              to_port: 443
+              cidr_blocks: ["0.0.0.0/0"]
+              description: HTTPS access from anywhere
+            - protocol: tcp
+              from_port: 22
+              to_port: 22
+              cidr_blocks: ["YOUR_IP_ADDRESS/32"]
+              description: SSH access from admin IP
+          egress:
+            - protocol: -1
+              from_port: -1
+              to_port: -1
+              cidr_blocks: ["0.0.0.0/0"]
+              description: All outbound traffic
+        tags:
+          Name: XYZ-WebServer-SG-West
+          Environment: Production
+          Region: Secondary
