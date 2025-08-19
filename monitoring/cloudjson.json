@@ -1,0 +1,7 @@
+{
+  "custom-metrics": {
+    "EC2": ["CPUUtilization", "NetworkIn", "NetworkOut"],
+    "EBS": ["VolumeReadOps", "VolumeWriteOps", "VolumeTotalReadTime"],
+    "Custom": ["WebServerResponseTime", "DiskSpaceUtilization"]
+  }
+}
