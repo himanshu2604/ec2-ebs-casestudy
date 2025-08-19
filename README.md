@@ -46,9 +46,14 @@ ec2-ebs-casestudy/
 │   ├── backup-automation/               # Snapshot management
 │   └── validation/                      # Testing and validation
 ├── ⚙️ configurations/
+│   ├── all_configuration_files.md       # All AWS configurations
 │   ├── aws-cli/                         # AWS CLI configurations
 │   ├── ami-configs/                     # AMI specifications
-│   └── instance-configs/                # Instance configurations
+│   ├── instance-configs/                # Instance configurations
+│   ├── monitoring/                      # Monitoring configurations
+│   ├── backup-policies/                 # Backup-setup policies
+│   ├── deployment/                      # Deployment configurations
+│   └── security/                        # Security configurations
 ├── 📸 screenshots/                     # Implementation evidence
 ├── 📸 architecture/                    # Main Architecture
 ├── 🧪 testing/                         # Test results and benchmarks
