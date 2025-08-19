@@ -51,6 +51,7 @@ ec2-ebs-casestudy/
 │   ├── ami-configs/                     # AMI specifications
 │   ├── instance-configs/                # Instance configurations
 │   ├── monitoring/                      # Monitoring configurations
+│   ├── cost-optimization/               # Cost Optimization Configuration
 │   ├── backup-policies/                 # Backup-setup policies
 │   ├── deployment/                      # Deployment configurations
 │   └── security/                        # Security configurations
