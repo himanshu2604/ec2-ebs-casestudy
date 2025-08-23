@@ -79,7 +79,7 @@ ec2-ebs-casestudy/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/[your-username]/ec2-ebs-casestudy.git
+   git clone https://github.com/himanshu2604/ec2-ebs-casestudy.git
    cd ec2-ebs-casestudy
    ```
 
