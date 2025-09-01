@@ -181,9 +181,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 **Himanshu Nitin Nehete**  
-📧 Email: [himanshunehete2025@gmail.com ](himanshunehete2025@gmail.com) 
-🔗 LinkedIn: [My Profile](https://www.linkedin.com/in/himanshu-nehete/)
-🎓 Institution: iHub Divyasampark, IIT Roorkee
+📧 Email: [himanshunehete2025@gmail.com ](himanshunehete2025@gmail.com) <br>
+🔗 LinkedIn: [My Profile](https://www.linkedin.com/in/himanshu-nehete/) <br>
+🎓 Institution: iHub Divyasampark, IIT Roorkee <br>
 💻 Infrastructure Scripts: [GitHub Gists Collection](https://gist.github.com/cc22141d0c51dc1cae4a556aaf628514.git)
 
 ---
