@@ -4,6 +4,7 @@
 [![Infrastructure](https://img.shields.io/badge/Infrastructure-Multi--Region-blue)](https://github.com/[your-username]/ec2-ebs-casestudy)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Study](https://img.shields.io/badge/Academic-IIT%20Roorkee-red)](https://github.com/[your-username]/ec2-ebs-casestudy)
+[![Gists](https://img.shields.io/badge/Gists-Infrastructure%20Scripts-blue)](MASTER_GIST_URL)
 
 ## 📋 Project Overview
 
@@ -15,6 +16,24 @@
 - ✅ **Zero Data Loss** during all storage operations
 - ✅ **Custom AMI Creation** for standardized deployments
 - ✅ **Dynamic EBS Management** with real-time operations
+
+## 🔗 Infrastructure as Code Collection
+
+> **📋 Complete Automation Scripts**: [GitHub Gists Collection](https://gist.github.com/cc22141d0c51dc1cae4a556aaf628514.git)
+
+While this case study demonstrates hands-on AWS Console implementation for learning purposes, I've also created production-ready automation scripts that achieve the same results programmatically:
+
+| Script | Purpose | Gist Link |
+|--------|---------|-----------|
+| 🖥️ **EC2 Launch Automation** | Multi-region instance deployment | [View Script](https://gist.github.com/a8b7dfee036b29fefe5682e0c75e6312.git) |
+| 💾 **EBS Management** | Dynamic storage operations | [View Script](https://gist.github.com/c4a2567b26a3b32b03928d47a6f449c2.git) |
+| 🎯 **AMI Operations** | Custom image creation & replication | [View Script](https://gist.github.com/57fe3e10bae2cdfb23eeaa9fdf5277c0.git) |
+| 🌐 **Web Server Setup** | Automated server configuration | [View Script](https://gist.github.com/e65cbdaf6f8f78a41cd4d1caf540856e.git) |
+| 📊 **CloudWatch Setup** | Monitoring & logging automation | [View Script](https://gist.github.com/2d3a6feed00c98315b825e06ed23ccb0.git) |
+
+**Why Both Approaches?**
+- **Manual Implementation** (This Repo) → Understanding AWS services deeply
+- **Automated Scripts** (Gists) → Production-ready Infrastructure as Code
 
 ## 🏗️ Architecture
 
@@ -164,10 +183,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Himanshu Nitin Nehete**  
 📧 Email: [himanshunehete2025@gmail.com ](himanshunehete2025@gmail.com) 
 🔗 LinkedIn: [My Profile](https://www.linkedin.com/in/himanshu-nehete/)
-🎓 Institution: iHub Divyasampark, IIT Roorkee  
+🎓 Institution: iHub Divyasampark, IIT Roorkee
+💻 Infrastructure Scripts: [GitHub Gists Collection](https://gist.github.com/cc22141d0c51dc1cae4a556aaf628514.git)
 
 ---
 
 ⭐ **Star this repository if it helped you learn AWS infrastructure management!**
+🔄 **Fork the automation gists to customize for your use case!**
 
 **Keywords**: AWS, EC2, EBS, Multi-Region, Infrastructure, Cloud Computing, IIT Roorkee, Case Study, AMI, Snapshots
